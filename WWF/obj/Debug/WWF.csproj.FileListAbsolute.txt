@@ -58,3 +58,5 @@ D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\WWF.csprojResolveAssemblyRef
 D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\InProcessTempFiles\Activity1.g.cs
 D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\InProcessTempFiles\Activity1.g.xaml
 D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\InProcessTempFiles\_WWF.g.cs
+D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\WWF.csproj.FileListAbsolute.txt
+D:\02编程\2016年\01协同开发\WF\WWF\obj\Debug\WWF.dll

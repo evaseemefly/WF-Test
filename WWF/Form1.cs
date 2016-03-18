@@ -31,29 +31,60 @@ namespace WWF
             //    {"TempBookMark",this.txtBookMarkName.Text }
             //});
 
-            //需要传入参数
-            WorkflowApplication application = new WorkflowApplication(new Activity1(), new Dictionary<string, object>()
+            #region 注释掉，由封装的类创建工作流
+            ////1 创建工作流对象（需要传入参数）
+            //WorkflowApplication application = new WorkflowApplication(new Activity1(), new Dictionary<string, object>()
+            //{
+            //    {"InputDateTime",DateTime.Now.ToString() },
+            //    {"TempBookMark",this.txtBookMarkName.Text }
+            //});
+
+            ////2 将实例状态信息保存到SQLServer
+            //SqlWorkflowInstanceStore store = new SqlWorkflowInstanceStore(ConfigurationManager.AppSettings["workflowConnection"]);
+
+            ////3 
+            //application.InstanceStore = store;
+
+            //application.Unloaded += OnUnloaded;
+            //application.Aborted += OnAborted;
+            //application.Idle += OnIdle;
+            //application.PersistableIdle += OnPersistableIdle;
+            //application.OnUnhandledException += OnUnhandledException;
+            //this.txtWFID.Text = application.Id.ToString();
+            ////application.Load(application.Id);
+            ////application.ResumeBookmark(this.txtBookMarkName.Text, int.Parse(this.txtValue.Text));
+            ////4 开始工作流
+            //application.Run();
+            ////Console.WriteLine("主线程即将被阻止，等待唤醒");
+            ////syncEven.WaitOne();
+            ////Console.WriteLine("主线程继续执行");
+            #endregion
+
+            var dict = new Dictionary<string, object>()
             {
                 {"InputDateTime",DateTime.Now.ToString() },
                 {"TempBookMark",this.txtBookMarkName.Text }
-            });
+            };
 
-            SqlWorkflowInstanceStore store = new SqlWorkflowInstanceStore(ConfigurationManager.AppSettings["workflowConnection"]);
-
-            application.InstanceStore = store;
-
-            application.Unloaded += OnUnloaded;
-            application.Aborted += OnAborted;
-            application.Idle += OnIdle;
-            application.PersistableIdle += OnPersistableIdle;
-            application.OnUnhandledException += OnUnhandledException;
+            //通过封装好的类创建工作流
+            var application = WorkflowApplicationHelper.CreateWorkflowApplication(new Activity1(), dict);
             this.txtWFID.Text = application.Id.ToString();
-            //application.Load(application.Id);
-            //application.ResumeBookmark(this.txtBookMarkName.Text, int.Parse(this.txtValue.Text));
-            application.Run();
-            //Console.WriteLine("主线程即将被阻止，等待唤醒");
-            //syncEven.WaitOne();
-            //Console.WriteLine("主线程继续执行");
+
+        }
+
+        /// <summary>
+        /// 唤醒bookMark执行流程，并将输入的数字传入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {            
+            WorkflowApplication application = WorkflowApplicationHelper.LoadWorkflowApplication(new Activity1(), Guid.Parse(this.txtWFID.Text));            
+
+            application.ResumeBookmark(this.txtBookMarkName.Text, int.Parse(this.txtValue.Text));
+
+
+
         }
 
         private UnhandledExceptionAction OnUnhandledException(WorkflowApplicationUnhandledExceptionEventArgs arg)
@@ -87,32 +118,7 @@ namespace WWF
             Console.WriteLine("主线程：工作流卸载");
         }
 
-        /// <summary>
-        /// 唤醒bookMark执行流程，并将输入的数字传入
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //application.ResumeBookmark(this.txtBookMarkName.Text, int.Parse(this.txtValue.Text));
-            WorkflowApplication application = new WorkflowApplication(new Activity1());
-
-            SqlWorkflowInstanceStore store = new SqlWorkflowInstanceStore(ConfigurationManager.AppSettings["workflowConnection"]);
-
-            application.InstanceStore = store;
-
-            application.Unloaded += OnUnloaded;
-            application.Aborted += OnAborted;
-            application.Idle += OnIdle;
-            application.PersistableIdle += OnPersistableIdle;
-            application.OnUnhandledException += OnUnhandledException;
-            //this.txtWFID.Text = application.Id.ToString();
-            application.Load(Guid.Parse(this.txtWFID.Text));
-            application.ResumeBookmark(this.txtBookMarkName.Text, int.Parse(this.txtValue.Text));
-
-
-
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
