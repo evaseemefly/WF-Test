@@ -9,13 +9,15 @@
 //------------------------------------------------------------------------------
 
 
-namespace WF {
+namespace WWF {
     
     
     [System.Runtime.InteropServices.ComVisible(false)]
-    public partial class MoneyActivity : System.Activities.Activity, System.ComponentModel.ISupportInitialize {
+    public partial class Activity2 : System.Activities.Activity, System.ComponentModel.ISupportInitialize {
         
         private bool _contentLoaded;
+        
+        private System.Activities.InArgument<string> _TempBookMarkName;
         
 partial void BeforeInitializeComponent(ref bool isInitialized);
 
@@ -23,8 +25,17 @@ partial void AfterInitializeComponent();
 
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("XamlBuildTask", "4.0.0.0")]
-        public MoneyActivity() {
+        public Activity2() {
             this.InitializeComponent();
+        }
+        
+        public System.Activities.InArgument<string> TempBookMarkName {
+            get {
+                return this._TempBookMarkName;
+            }
+            set {
+                this._TempBookMarkName = value;
+            }
         }
         
         /// <summary>
@@ -44,7 +55,7 @@ partial void AfterInitializeComponent();
                 return;
             }
             string resourceName = this.FindResource();
-            System.IO.Stream initializeXaml = typeof(MoneyActivity).Assembly.GetManifestResourceStream(resourceName);
+            System.IO.Stream initializeXaml = typeof(Activity2).Assembly.GetManifestResourceStream(resourceName);
             System.Xml.XmlReader xmlReader = null;
             System.Xaml.XamlReader reader = null;
             System.Xaml.XamlObjectWriter objectWriter = null;
@@ -57,7 +68,7 @@ partial void AfterInitializeComponent();
                 reader = new System.Xaml.XamlXmlReader(xmlReader, schemaContext, readerSettings);
                 System.Xaml.XamlObjectWriterSettings writerSettings = new System.Xaml.XamlObjectWriterSettings();
                 writerSettings.RootObjectInstance = this;
-                writerSettings.AccessLevel = System.Xaml.Permissions.XamlAccessLevel.PrivateAccessTo(typeof(MoneyActivity));
+                writerSettings.AccessLevel = System.Xaml.Permissions.XamlAccessLevel.PrivateAccessTo(typeof(Activity2));
                 objectWriter = new System.Xaml.XamlObjectWriter(schemaContext, writerSettings);
                 System.Xaml.XamlServices.Transform(reader, objectWriter);
             }
@@ -77,10 +88,10 @@ partial void AfterInitializeComponent();
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("XamlBuildTask", "4.0.0.0")]
         private string FindResource() {
-            string[] resources = typeof(MoneyActivity).Assembly.GetManifestResourceNames();
+            string[] resources = typeof(Activity2).Assembly.GetManifestResourceNames();
             for (int i = 0; (i < resources.Length); i = (i + 1)) {
                 string resource = resources[i];
-                if ((resource.Contains(".MoneyActivity.g.xaml") || resource.Equals("MoneyActivity.g.xaml"))) {
+                if ((resource.Contains(".Activity2.g.xaml") || resource.Equals("Activity2.g.xaml"))) {
                     return resource;
                 }
             }

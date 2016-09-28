@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<local:Activity2 xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="clr-namespace:WWF;assembly=WWF" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities.DurableInstancing</AssemblyReference>
+      <AssemblyReference>System.Configuration</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Runtime.DurableInstancing</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Deployment</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Windows.Forms</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>WWF</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <local:Activity2.Implementation>
+    <StateMachine>
+      <StateMachine.InitialState>
+        <State x:Name="__ReferenceID1" DisplayName="1模拟读取配置信息">
+          <State.Entry>
+            <WriteLine Text="进入状态1" />
+          </State.Entry>
+          <State.Exit>
+            <WriteLine Text="离开状态1" />
+          </State.Exit>
+          <State.Transitions>
+            <Transition DisplayName="T1">
+              <Transition.To>
+                <State x:Name="__ReferenceID2" DisplayName="2模拟从Redis中读取集合">
+                  <State.Entry>
+                    <WriteLine Text="进入状态2" />
+                  </State.Entry>
+                  <State.Exit>
+                    <WriteLine Text="离开状态2" />
+                  </State.Exit>
+                  <State.Transitions>
+                    <Transition DisplayName="T2">
+                      <Transition.To>
+                        <State x:Name="__ReferenceID0" DisplayName="3 模拟进行查询操作">
+                          <State.Entry>
+                            <WriteLine Text="进入状态3" />
+                          </State.Entry>
+                          <State.Exit>
+                            <WriteLine Text="离开状态3" />
+                          </State.Exit>
+                          <State.Transitions>
+                            <Transition DisplayName="T3">
+                              <Transition.To>
+                                <State x:Name="__ReferenceID3" DisplayName="4检查是否需要重查">
+                                  <State.Entry>
+                                    <Sequence>
+                                      <WriteLine Text="进入状态4" />
+                                      <local:myWait4BookMark Text="{x:Null}">
+                                        <local:myWait4BookMark.BookMarkName>
+                                          <InArgument x:TypeArguments="x:String">
+                                            <mca:CSharpValue x:TypeArguments="x:String">TempBookMarkName</mca:CSharpValue>
+                                          </InArgument>
+                                        </local:myWait4BookMark.BookMarkName>
+                                        <local:myWait4BookMark.InputStr>
+                                          <OutArgument x:TypeArguments="x:String">
+                                            <mca:CSharpReference x:TypeArguments="x:String">str_temp</mca:CSharpReference>
+                                          </OutArgument>
+                                        </local:myWait4BookMark.InputStr>
+                                      </local:myWait4BookMark>
+                                    </Sequence>
+                                  </State.Entry>
+                                  <State.Exit>
+                                    <WriteLine Text="离开状态4" />
+                                  </State.Exit>
+                                  <State.Transitions>
+                                    <Transition DisplayName="T4">
+                                      <Transition.Trigger>
+                                        <WriteLine Text="判断是否需要重查" />
+                                      </Transition.Trigger>
+                                      <Transition.To>
+                                        <x:Reference>__ReferenceID0</x:Reference>
+                                      </Transition.To>
+                                      <Transition.Action>
+                                        <WriteLine Text="需要重查" />
+                                      </Transition.Action>
+                                      <Transition.Condition>
+                                        <mca:CSharpValue x:TypeArguments="x:Boolean">str_temp=="a"</mca:CSharpValue>
+                                      </Transition.Condition>
+                                    </Transition>
+                                    <Transition DisplayName="T5">
+                                      <Transition.To>
+                                        <State x:Name="__ReferenceID4" DisplayName="5结束" IsFinal="True" />
+                                      </Transition.To>
+                                      <Transition.Action>
+                                        <WriteLine Text="不需要重查" />
+                                      </Transition.Action>
+                                      <Transition.Condition>
+                                        <mca:CSharpValue x:TypeArguments="x:Boolean">str_temp!="a"</mca:CSharpValue>
+                                      </Transition.Condition>
+                                    </Transition>
+                                  </State.Transitions>
+                                </State>
+                              </Transition.To>
+                            </Transition>
+                          </State.Transitions>
+                        </State>
+                      </Transition.To>
+                    </Transition>
+                  </State.Transitions>
+                </State>
+              </Transition.To>
+            </Transition>
+          </State.Transitions>
+        </State>
+      </StateMachine.InitialState>
+      <x:Reference>__ReferenceID1</x:Reference>
+      <x:Reference>__ReferenceID2</x:Reference>
+      <x:Reference>__ReferenceID0</x:Reference>
+      <x:Reference>__ReferenceID3</x:Reference>
+      <x:Reference>__ReferenceID4</x:Reference>
+      <StateMachine.Variables>
+        <Variable x:TypeArguments="x:String" Name="str_temp" />
+      </StateMachine.Variables>
+      <sads:DebugSymbol.Symbol>dzhEOlwwMue8lueoi1wyMDE25bm0XDAx5Y2P5ZCM5byA5Y+RXFdGXFdXRlxBY3Rpdml0eTIueGFtbCIzA5oBEgIBATUHjwEPAgEtPw+LARcCASZJF4cBHwIBH1MfgwEnAgEEeSd5kwECAQI3CzdTAgEyOgs6UwIBMEETQVsCAStEE0RbAgEpSxtLYwIBJE4bTmMCASJVI2MuAgEVZiNmawIBE2sna3ICARF0J3RzAgEOcSdxbwIBDH8nf3MCAQh8J3xwAgEGN0k3UAIBMzpJOlACATFBUUFYAgEsRFFEWAIBKktZS2ACASVOWU5gAgEjViVWbQIBHVclYj0CARZmYWZoAgEUa2VrbwIBEnFmcWwCAQ18ZnxtAgEHVmNWagIBHlorWnkCARpfK195AgEX</sads:DebugSymbol.Symbol>
+    </StateMachine>
+  </local:Activity2.Implementation>
+</local:Activity2>
